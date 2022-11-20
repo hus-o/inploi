@@ -2,6 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
+  compiler: {
+    styledComponents: true,
+  },
+  images: {
+    domains: ["*.placeholder.com"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
