@@ -14,31 +14,19 @@ import {
   TransformItemsMetadata,
   TransformItems,
 } from "instantsearch.js";
-import {
-  ResultsCard,
-  ResultsContainer,
-  CardDetailsContainer,
-  PayContainer,
-  StyledChevronDown,
-  CardCompanyName,
-  CardCountryCity,
-  CardEmploymentType,
-  CardLocationDetails,
-  CardLocationType,
-  CardPay,
-  CardPayType,
-} from "./results.style";
+import { ResultsCard, ResultsContainer, CardApply } from "./results.style";
 import Image from "next/image";
 import { motion, Variants, AnimatePresence } from "framer-motion";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { SearchContext } from "../../contexts/search-context";
+import CardDetails from "./card-details";
 
 /* TODO
   - filter search, either on LHS, in modal or dropdown under searchbox
   - If location = location include country and city, if hybrid include that and word 'Hybrid - ', if remote then remote
 */
 
-type IHit = {
+export type IHit = {
   title: string;
   description: string;
   employment_type: string;
@@ -128,26 +116,20 @@ const Results = () => {
                   width={25}
                   height={25}
                 />
-                <CardDetailsContainer>
-                  <CardCompanyName>{hit.title}</CardCompanyName>
-                  <CardLocationDetails>
-                    <CardCountryCity>
-                      {hit.country}
-                      {", "}
-                      {hit.city}
-                      {" - "}
-                    </CardCountryCity>
-                    <CardLocationType>{hit.location_type}</CardLocationType>
-                  </CardLocationDetails>
-                  <CardEmploymentType>{hit.employment_type}</CardEmploymentType>
-                  <PayContainer>
-                    <CardPay>
-                      {hit.pay_currency} {hit.pay}
-                    </CardPay>
-                    <CardPayType>{hit.pay_type}</CardPayType>
-                  </PayContainer>
-                </CardDetailsContainer>
-                <a href={`${hit.apply_url}`}>Apply</a>
+                <CardDetails
+                  title={hit.title}
+                  country={hit.country}
+                  city={hit.city}
+                  location_type={hit.location_type}
+                  employment_type={hit.employment_type}
+                  pay_currency={hit.pay_currency}
+                  pay={hit.pay}
+                  pay_type={hit.pay_type}
+                  description={hit.description}
+                />
+                <CardApply href={`${hit.apply_url}`} target="_blank">
+                  <span>Apply</span>
+                </CardApply>
               </ResultsCard>
             );
           })}

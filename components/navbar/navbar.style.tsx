@@ -9,7 +9,7 @@ export const Header = styled.header`
 
 export const LoginButton = styled.a`
   align-items: center;
-  background-color: #fee6e3;
+  background-color: #f1faee;
   border: 2px solid #111;
   border-radius: 8px;
   box-sizing: border-box;

@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
 export const HeaderText = styled.h1`
-  color: #5e5e5e;
+  color: #333333;
   text-align: center;
+  margin-bottom: 10px;
+
+  @media (max-width: 500px) {
+    font-size: 24px;
+  }
 `;
 
 export const Main = styled.main`

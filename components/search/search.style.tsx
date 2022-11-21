@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { SearchBox } from "react-instantsearch-hooks-web";
 
 export const StyledSearchBox = styled(SearchBox)`
-  width: 75%;
+  width: 100%;
   height: 50px;
   border-radius: 10px;
 
@@ -25,5 +25,9 @@ export const StyledSearchBox = styled(SearchBox)`
   .ais-SearchBox-submit,
   .ais-SearchBox-reset {
     display: none;
+  }
+
+  @media (min-width: 768px) {
+    width: 75%;
   }
 `;
