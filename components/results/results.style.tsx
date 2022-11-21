@@ -9,7 +9,7 @@ export const ResultsContainer = styled.div`
 
 export const ResultsCard = styled.div`
   max-width: 500px;
-  width: 100%;
+  width: calc(100% - 20px);
   display: flex;
   background-color: #fcfaf9;
   padding: 10px;
@@ -17,9 +17,9 @@ export const ResultsCard = styled.div`
   height: 150px;
   margin-bottom: 10px;
   margin-top: 10px;
-  -webkit-box-shadow: 0px 0px 20px 5px rgb(204 204 204);
-  -moz-box-shadow: 0px 0px 20px 5px rgba(204, 204, 204, 1);
-  box-shadow: 0px 0px 20px 5px rgb(204 204 204);
+  -webkit-box-shadow: 0px 0px 10px 2px rgb(204 204 204);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(204, 204, 204, 1);
+  box-shadow: 0px 0px 10px 2px rgb(204 204 204);
 `;
 
 export const CardDetailsContainer = styled.div`

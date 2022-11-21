@@ -29,7 +29,9 @@ import {
   CardPayType,
 } from "./results.style";
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
+import { useContext } from "react";
+import { SearchContext } from "../../contexts/search-context";
 
 /* TODO
   - filter search, either on LHS, in modal or dropdown under searchbox
@@ -72,79 +74,91 @@ const transformItems: UseInfiniteHitsPropsMod["transformItems"] = (items) => {
 const Results = () => {
   const infiniteHitsApi = useInfiniteHits({ transformItems });
   const { hits, isLastPage, showMore } = infiniteHitsApi;
+  const { searched } = useContext(SearchContext);
 
   const container: Variants = {
-    hidden: { display: "none" },
+    hidden: { opacity: 0 },
     show: {
-      display: "flex",
+      opacity: 1,
       transition: {
-        delay: 5,
-        // when: "beforeChildren",
-        // staggerChildren: 2,
+        delay: 1.2,
+        delayChildren: 5,
+        staggerChildren: 5,
       },
     },
   };
 
-  //   const item: Variants = {
-  //     hidden: { visibility: "hidden" },
-  //     show: {
-  //       visibility: "visible",
-  //       transition: {
-  //         duration: 5,
-  //         ease: "easeIn",
-  //       },
-  //     },
-  //   };
+  const item: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        duration: 1.5,
+        ease: "linear",
+      },
+    },
+  };
 
   if (!hits || hits.length < 1) {
     return null;
   }
-  console.log(hits);
+
   return (
-    <ResultsContainer
-      as={motion.div}
-      variants={container}
-      initial="hidden"
-      animate="show"
-    >
-      {hits.map((hit) => {
-        return (
-          <ResultsCard key={hit.objectID}>
-            <Image
-              src="/images/logo.png"
-              alt="company logo"
-              width={25}
-              height={25}
-            />
-            <CardDetailsContainer>
-              <CardCompanyName>{hit.title}</CardCompanyName>
-              <CardLocationDetails>
-                <CardCountryCity>
-                  {hit.country}
-                  {", "}
-                  {hit.city}
-                  {" - "}
-                </CardCountryCity>
-                <CardLocationType>{hit.location_type}</CardLocationType>
-              </CardLocationDetails>
-              <CardEmploymentType>{hit.employment_type}</CardEmploymentType>
-              <PayContainer>
-                <CardPay>
-                  {hit.pay_currency} {hit.pay}
-                </CardPay>
-                <CardPayType>{hit.pay_type}</CardPayType>
-              </PayContainer>
-            </CardDetailsContainer>
-            <a href={`${hit.apply_url}`}>Apply</a>
-          </ResultsCard>
-        );
-      })}
-      {!isLastPage && (
-        <button onClick={showMore} className="ais-InfiniteHits-loadMore">
-          Load more
-        </button>
+    <AnimatePresence>
+      {searched && (
+        <ResultsContainer
+          as={motion.div}
+          variants={container}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+        >
+          {hits.map((hit) => {
+            return (
+              <ResultsCard
+                key={hit.objectID}
+                as={motion.div}
+                variants={item}
+                initial="hidden"
+                animate="show"
+              >
+                <Image
+                  src="/images/logo.png"
+                  alt="company logo"
+                  width={25}
+                  height={25}
+                />
+                <CardDetailsContainer>
+                  <CardCompanyName>{hit.title}</CardCompanyName>
+                  <CardLocationDetails>
+                    <CardCountryCity>
+                      {hit.country}
+                      {", "}
+                      {hit.city}
+                      {" - "}
+                    </CardCountryCity>
+                    <CardLocationType>{hit.location_type}</CardLocationType>
+                  </CardLocationDetails>
+                  <CardEmploymentType>{hit.employment_type}</CardEmploymentType>
+                  <PayContainer>
+                    <CardPay>
+                      {hit.pay_currency} {hit.pay}
+                    </CardPay>
+                    <CardPayType>{hit.pay_type}</CardPayType>
+                  </PayContainer>
+                </CardDetailsContainer>
+                <a href={`${hit.apply_url}`}>Apply</a>
+              </ResultsCard>
+            );
+          })}
+          {!isLastPage && (
+            <button onClick={showMore} className="ais-InfiniteHits-loadMore">
+              Load more
+            </button>
+          )}
+        </ResultsContainer>
       )}
-    </ResultsContainer>
+    </AnimatePresence>
   );
 };
 
