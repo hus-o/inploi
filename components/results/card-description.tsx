@@ -31,7 +31,7 @@ const CardDescriptionSection: React.FC<CardDescriptionProps> = ({
         },
         opacity: {
           duration: 0.3,
-          delay: 0.2,
+          delay: 0.1,
         },
       },
     },
@@ -43,9 +43,11 @@ const CardDescriptionSection: React.FC<CardDescriptionProps> = ({
           duration: 0.5,
         },
         opacity: {
-          duration: 0.2,
+          from: 0.3,
+          duration: 0.3,
           delay: 0.1,
         },
+        ease: "backOut",
       },
     },
   };
