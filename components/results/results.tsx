@@ -17,9 +17,10 @@ import {
 import { ResultsCard, ResultsContainer, CardApply } from "./results.style";
 import Image from "next/image";
 import { motion, Variants, AnimatePresence } from "framer-motion";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { SearchContext } from "../../contexts/search-context";
 import CardDetails from "./card-details";
+import NotFound from "../not-found/not-found";
 
 /* TODO
   - filter search, either on LHS, in modal or dropdown under searchbox
@@ -62,6 +63,7 @@ const transformItems: UseInfiniteHitsPropsMod["transformItems"] = (items) => {
 const Results = () => {
   const infiniteHitsApi = useInfiniteHits({ transformItems });
   const { hits, isLastPage, showMore } = infiniteHitsApi;
+  const sentinelRef = useRef(null);
   const { searched } = useContext(SearchContext);
 
   const container: Variants = {
@@ -87,8 +89,27 @@ const Results = () => {
     },
   };
 
+  useEffect(() => {
+    if (sentinelRef.current !== null) {
+      console.log(sentinelRef.current);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isLastPage) {
+            showMore();
+          }
+        });
+      });
+
+      observer.observe(sentinelRef.current);
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [isLastPage, showMore, hits]);
+
   if (!hits || hits.length < 1) {
-    return null;
+    return <NotFound />;
   }
 
   return (
@@ -101,14 +122,18 @@ const Results = () => {
           animate="show"
           exit="hidden"
         >
-          {hits.map((hit) => {
+          {hits.map((hit, i) => {
+            const isLastElement = hits.length - 1 === i;
+            const itemProps = isLastElement ? { ref: sentinelRef } : {};
             return (
               <ResultsCard
-                key={hit.objectID}
+                ref={sentinelRef}
+                key={i}
                 as={motion.div}
                 variants={item}
                 initial="hidden"
                 animate="show"
+                {...itemProps}
               >
                 <Image
                   src="/images/logo.png"
@@ -133,11 +158,11 @@ const Results = () => {
               </ResultsCard>
             );
           })}
-          {!isLastPage && (
+          {/* {!isLastPage && (
             <button onClick={showMore} className="ais-InfiniteHits-loadMore">
               Load more
             </button>
-          )}
+          )} */}
         </ResultsContainer>
       )}
     </AnimatePresence>
