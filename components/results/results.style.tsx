@@ -72,6 +72,8 @@ export const CardDescription = styled.div`
   background-color: #fcfaf9;
   height: 100%;
   font-size: 14px;
+  max-height: 170px;
+  overflow: scroll;
 `;
 
 export const CardApply = styled.a`

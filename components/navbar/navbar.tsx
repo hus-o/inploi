@@ -1,13 +1,10 @@
 import { LoginButton, Header } from "./navbar.style";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
-import { SearchContext } from "../../contexts/search-context";
 const Navbar = () => {
-  const { setSearched } = useContext(SearchContext);
   return (
     <Header>
-      <Link href="/" onClick={() => setSearched(false)}>
+      <Link href="/" onClick={() => window.location.reload()}>
         <Image
           src="/images/logo.png"
           alt="navbar logo"

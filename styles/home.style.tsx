@@ -14,6 +14,9 @@ export const Main = styled.main`
   position: relative;
   height: calc(100vh - 90px);
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Section = styled.section`
