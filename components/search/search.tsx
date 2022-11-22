@@ -13,7 +13,9 @@ const algoliaClient = algoliasearch(
   "13e751a21f2ae69d7ccb7b590a0a9b3a"
 );
 
-const EmptyQueryBoundary = ({
+// Didn't like the results being displayed without searching, this handles that
+// and initial empty searches
+export const EmptyQueryBoundary = ({
   children,
   fallback,
 }: {

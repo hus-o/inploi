@@ -8,24 +8,13 @@ import {
   parseLocationType,
   LocationType,
 } from "../../utils/searchResultUtils";
-import {
-  Hit,
-  BaseHit,
-  TransformItemsMetadata,
-  TransformItems,
-} from "instantsearch.js";
+import { Hit, TransformItemsMetadata, TransformItems } from "instantsearch.js";
 import { ResultsCard, ResultsContainer, CardApply } from "./results.style";
 import Image from "next/image";
 import { motion, Variants, AnimatePresence } from "framer-motion";
-import { useContext, useEffect, useRef, useState } from "react";
-import { SearchContext } from "../../contexts/search-context";
+import { useEffect, useRef } from "react";
 import CardDetails from "./card-details";
 import NotFound from "../not-found/not-found";
-
-/* TODO
-  - filter search, either on LHS, in modal or dropdown under searchbox
-  - If location = location include country and city, if hybrid include that and word 'Hybrid - ', if remote then remote
-*/
 
 export type IHit = {
   title: string;
@@ -41,6 +30,7 @@ export type IHit = {
   location_type: string;
 };
 
+// Note: Adjusted algolia type to include type of hits, otherwise unhappy linter.
 interface UseInfiniteHitsPropsMod
   extends Omit<UseInfiniteHitsProps, "transformItems"> {
   transformItems?: TransformItems<Hit<IHit>, TransformItemsMetadata>;
@@ -51,6 +41,7 @@ const transformItems: UseInfiniteHitsPropsMod["transformItems"] = (items) => {
   const currentDate = new Date().toISOString();
   const filtered = items.filter((item) => item.expires_at > currentDate);
 
+  // Transform hits, capitalise and parse weird looking data
   return filtered.map((item) => ({
     ...item,
     title: capitaliseFirstLetter(item.title),
@@ -64,16 +55,14 @@ const Results = () => {
   const infiniteHitsApi = useInfiniteHits({ transformItems });
   const { hits, isLastPage, showMore } = infiniteHitsApi;
   const sentinelRef = useRef(null);
-  const { searched } = useContext(SearchContext);
 
   const container: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        delay: 1.2,
-        delayChildren: 5,
-        staggerChildren: 5,
+        delay: 0.8,
+        staggerChildren: 0.3,
       },
     },
   };
@@ -83,7 +72,7 @@ const Results = () => {
     show: {
       opacity: 1,
       transition: {
-        duration: 1.5,
+        duration: 0.5,
         ease: "linear",
       },
     },
@@ -91,7 +80,6 @@ const Results = () => {
 
   useEffect(() => {
     if (sentinelRef.current !== null) {
-      console.log(sentinelRef.current);
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !isLastPage) {
@@ -113,59 +101,47 @@ const Results = () => {
   }
 
   return (
-    <AnimatePresence>
-      {searched && (
-        <ResultsContainer
-          as={motion.div}
-          variants={container}
-          initial="hidden"
-          animate="show"
-          exit="hidden"
-        >
-          {hits.map((hit, i) => {
-            const isLastElement = hits.length - 1 === i;
-            const itemProps = isLastElement ? { ref: sentinelRef } : {};
-            return (
-              <ResultsCard
-                ref={sentinelRef}
-                key={i}
-                as={motion.div}
-                variants={item}
-                initial="hidden"
-                animate="show"
-                {...itemProps}
-              >
-                <Image
-                  src="/images/logo.png"
-                  alt="company logo"
-                  width={25}
-                  height={25}
-                />
-                <CardDetails
-                  title={hit.title}
-                  country={hit.country}
-                  city={hit.city}
-                  location_type={hit.location_type}
-                  employment_type={hit.employment_type}
-                  pay_currency={hit.pay_currency}
-                  pay={hit.pay}
-                  pay_type={hit.pay_type}
-                  description={hit.description}
-                />
-                <CardApply href={`${hit.apply_url}`} target="_blank">
-                  <span>Apply</span>
-                </CardApply>
-              </ResultsCard>
-            );
-          })}
-          {/* {!isLastPage && (
-            <button onClick={showMore} className="ais-InfiniteHits-loadMore">
-              Load more
-            </button>
-          )} */}
-        </ResultsContainer>
-      )}
-    </AnimatePresence>
+    <ResultsContainer
+      as={motion.div}
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      {hits.map((hit, i) => {
+        const isLastElement = hits.length - 1 === i;
+        const itemProps = isLastElement ? { ref: sentinelRef } : {};
+        return (
+          <ResultsCard
+            ref={sentinelRef}
+            key={i}
+            as={motion.div}
+            variants={item}
+            {...itemProps}
+          >
+            <Image
+              src="/images/logo.png"
+              alt="company logo"
+              width={25}
+              height={25}
+            />
+            <CardDetails
+              title={hit.title}
+              country={hit.country}
+              city={hit.city}
+              location_type={hit.location_type}
+              employment_type={hit.employment_type}
+              pay_currency={hit.pay_currency}
+              pay={hit.pay}
+              pay_type={hit.pay_type}
+              description={hit.description}
+            />
+            <CardApply href={`${hit.apply_url}`} target="_blank">
+              <span>Apply</span>
+            </CardApply>
+          </ResultsCard>
+        );
+      })}
+    </ResultsContainer>
   );
 };
 

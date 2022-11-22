@@ -62,8 +62,6 @@ export const CardCountryCity = styled.p`
   align-items: center;
 `;
 
-export const CardLocationType = styled.p``;
-
 export const CardDescription = styled.div`
   position: absolute;
   width: 75%;
@@ -130,7 +128,6 @@ export const CardPay = styled.div`
 export const CardPayType = styled.p`
   margin-left: 5px;
 `;
-export const CardCurrency = styled.p``;
 
 export const CardLocEmpContainer = styled.div`
   display: flex;

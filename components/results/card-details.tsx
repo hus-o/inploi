@@ -6,7 +6,6 @@ import {
   PayContainer,
   CardHeader,
   CardCountryCity,
-  CardLocationType,
   CardPay,
   CardPayType,
   StyledLocationIcon,
@@ -108,7 +107,7 @@ const CardKeyView: React.FC<
       </CardCountryCity>
       <CardLocEmpContainer>
         <StyledOfficeIcon />
-        <CardLocationType>{location_type}</CardLocationType>
+        <p>{location_type}</p>
         <StyledPersonIcon />
         <p>{employment_type}</p>
       </CardLocEmpContainer>
