@@ -134,6 +134,7 @@ const Results = () => {
               pay={hit.pay}
               pay_type={hit.pay_type}
               description={hit.description}
+              id={i}
             />
             <CardApply href={`${hit.apply_url}`} target="_blank">
               <span>Apply</span>

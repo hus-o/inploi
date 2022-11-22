@@ -64,14 +64,11 @@ export const CardCountryCity = styled.p`
 
 export const CardDescription = styled.div`
   position: absolute;
-  width: 75%;
   display: flex;
+  flex-direction: column;
   color: #333333;
-  background-color: #fcfaf9;
   height: 100%;
   font-size: 14px;
-  max-height: 170px;
-  overflow: scroll;
 `;
 
 export const CardApply = styled.a`
@@ -119,6 +116,15 @@ export const CardApply = styled.a`
 
   &:hover span {
     background: none;
+  }
+`;
+
+export const CardDescriptionContent = styled.div`
+  height: 55%;
+  overflow: scroll;
+
+  @media (max-width: 500px) {
+    font-size: 12px !important;
   }
 `;
 

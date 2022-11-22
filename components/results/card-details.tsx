@@ -18,7 +18,11 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { BsBoxArrowRight, BsBoxArrowLeft } from "react-icons/bs";
 
-const CardDetails: React.FC<Omit<IHit, "apply_url" | "expires_at">> = ({
+interface CardDetailsProps extends Omit<IHit, "apply_url" | "expires_at"> {
+  id: number;
+}
+
+const CardDetails: React.FC<CardDetailsProps> = ({
   title,
   country,
   city,
@@ -28,13 +32,18 @@ const CardDetails: React.FC<Omit<IHit, "apply_url" | "expires_at">> = ({
   pay,
   pay_type,
   description,
+  id,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  // The logic and structuring here is to play nice with AnimatePresence
   return (
     <CardDetailsContainer>
-      {isOpen ? (
-        <CardDescriptionSection description={description} isOpen={isOpen} />
-      ) : (
+      <CardDescriptionSection
+        description={description}
+        isOpen={isOpen}
+        id={id}
+      />
+      {!isOpen && (
         <CardKeyView
           title={title}
           country={country}
@@ -46,7 +55,6 @@ const CardDetails: React.FC<Omit<IHit, "apply_url" | "expires_at">> = ({
           pay_type={pay_type}
         />
       )}
-
       <AnimatePresence initial={false} mode="wait">
         <IconContainer
           as={motion.div}
