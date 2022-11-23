@@ -20,11 +20,13 @@ const CardDescriptionSection: React.FC<CardDescriptionProps> = ({
   const descriptionVariants: Variants = {
     hidden: {
       x: "100%",
+      display: "none",
       opacity: 0,
     },
     show: {
       x: 0,
       opacity: 1,
+      display: "block",
       transition: {
         x: {
           duration: 0.5,
@@ -33,11 +35,15 @@ const CardDescriptionSection: React.FC<CardDescriptionProps> = ({
           duration: 0.3,
           delay: 0.1,
         },
+        display: {
+          delay: 0.2,
+        },
       },
     },
     exit: {
       x: "100%",
       opacity: 0,
+      display: "none",
       transition: {
         x: {
           duration: 0.5,
@@ -47,7 +53,9 @@ const CardDescriptionSection: React.FC<CardDescriptionProps> = ({
           duration: 0.3,
           delay: 0.1,
         },
-        ease: "backOut",
+        display: {
+          delay: 0.2,
+        },
       },
     },
   };
