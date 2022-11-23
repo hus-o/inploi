@@ -7,7 +7,7 @@
 ## Deployment
 
 - https://inploi.vercel.app/
-    - Known issue with vercel & Lottie (in notes) - had to disable `swcMinify` 
+    - Known issue with vercel & Lottie (in notes) - had to disable `swcMinify` in dev branch: https://inploi-fxgj9mnma-hus-o.vercel.app/
 
 ## Approach & Design Choices
 
