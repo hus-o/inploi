@@ -21,3 +21,4 @@
 - It was my first time using algolia & styled components, so this took a fair bit of time to fiddle around with types, docs and structuring things.
 - I opted to have everything on single page, no extra routes. Initially clicking home would wipe searches and animate search bar down but, running a hard reload on window just felt cleaner.
 - To make things a bit more 'fancy' I used framer motion to animate a bunch of things. With more time I would further fine-tune the animations and go for some more complex ones.
+- I've committed directly to main branch by choice, for single concentrated tasks I assume it as a feature.
