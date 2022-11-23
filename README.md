@@ -8,9 +8,9 @@
 
 - I wanted something simple, responsive and a bit creative without impeding UX
 - I made an initial mockup of what I wanted it to look like: [here](https://www.figma.com/file/MhxwBDUeO7jem7VxzXxKMn/Untitled?node-id=0:1&t=KIY2uV8NIy6kv74T-1)
-  -- I sadly didn't have enough time to implement the filters section, would be a TODO with more time
-  -- I also strayed from the animation of the card, from being a height animation, expanding & changing colour to the description sliding in from the right.
-  -- I decided against a load more button as infinite scroll seems more user friendly - if I'm a user scrolling down I clearly want to see more - since there is no footer - otherwise I would opt against this
+    - I sadly didn't have enough time to implement the filters section, would be a TODO with more time
+    - I also strayed from the animation of the card, from being a height animation, expanding & changing colour to the description sliding in from the right.
+    - I decided against a load more button as infinite scroll seems more user friendly - if I'm a user scrolling down I clearly want to see more - since there is no footer - otherwise I would opt against this
 
 ## Extra notes
 
