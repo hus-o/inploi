@@ -36,7 +36,7 @@ const CardDescriptionSection: React.FC<CardDescriptionProps> = ({
           delay: 0.1,
         },
         display: {
-          delay: 0.2,
+          delay: 0.4,
         },
       },
     },
@@ -54,7 +54,7 @@ const CardDescriptionSection: React.FC<CardDescriptionProps> = ({
           delay: 0.1,
         },
         display: {
-          delay: 0.2,
+          delay: 0.15,
         },
       },
     },
