@@ -4,6 +4,10 @@
 - Go to project folder - `cd inploi`
 - Run `npm run dev` in terminal
 
+## Deployment
+
+- https://inploi.vercel.app/
+
 ## Approach & Design Choices
 
 - I wanted something simple, responsive and a bit creative without impeding UX
