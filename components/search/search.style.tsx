@@ -10,6 +10,7 @@ export const StyledSearchBox = styled(SearchBox)`
   .ais-SearchBox-form {
     width: 100%;
     height: 100%;
+    font-size: 16px;
   }
 
   .ais-SearchBox-input {
