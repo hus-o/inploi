@@ -1,5 +1,5 @@
 import { StyledLottie } from "./not-found.style";
-import lottieJson from "../../json/not-found2.json";
+import lottieJson from "../../json/not-found.json";
 import { motion, Variants } from "framer-motion";
 
 const NotFound = () => {
