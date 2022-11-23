@@ -21,40 +21,37 @@ const CardDescriptionSection: React.FC<CardDescriptionProps> = ({
     hidden: {
       x: "100%",
       display: "none",
-      opacity: 0,
+      width: 0,
     },
     show: {
       x: 0,
-      opacity: 1,
       display: "block",
+      width: "100%",
       transition: {
         x: {
           duration: 0.5,
         },
-        opacity: {
-          duration: 0.3,
-          delay: 0.1,
+        width: {
+          duration: 0.5,
         },
         display: {
-          delay: 0.4,
+          delay: 0.3,
         },
       },
     },
     exit: {
       x: "100%",
-      opacity: 0,
       display: "none",
+      width: 0,
       transition: {
         x: {
           duration: 0.5,
         },
-        opacity: {
-          from: 0.3,
-          duration: 0.3,
-          delay: 0.1,
+        width: {
+          duration: 0.5,
         },
         display: {
-          delay: 0.15,
+          delay: 0.1,
         },
       },
     },
