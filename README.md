@@ -7,6 +7,7 @@
 ## Deployment
 
 - https://inploi.vercel.app/
+    - Known issue with vercel & Lottie (in notes) 
 
 ## Approach & Design Choices
 
@@ -22,3 +23,4 @@
 - I opted to have everything on single page, no extra routes. Initially clicking home would wipe searches and animate search bar down but, running a hard reload on window just felt cleaner.
 - To make things a bit more 'fancy' I used framer motion to animate a bunch of things. With more time I would further fine-tune the animations and go for some more complex ones.
 - I've committed directly to main branch by choice, for single concentrated tasks I assume it as a feature.
+- Post deployment, I've noticed a known issue with Vercel & Lottie (the svg animation library), seems like out of my control - with more time I would provide a fallback
